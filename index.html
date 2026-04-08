@@ -1,1 +1,23 @@
-<h1>Hariom s Tool Site is Live!</h1><p>Powered by Termux</p>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Gemini AI Tool</title>
+    <style>body{font-family:sans-serif;text-align:center;padding:50px;background:#eee;}input{padding:10px;width:70%;}button{padding:10px;background:blue;color:white;border:none;cursor:pointer;}</style>
+</head>
+<body>
+    <h1>My Gemini AI Tool</h1>
+    <input type="text" id="prompt" placeholder="यहाँ सवाल लिखें...">
+    <button onclick="ask()">पूछें</button>
+    <p id="res" style="margin-top:20px;font-weight:bold;"></p>
+    <script type="module">
+        import { GoogleGenerativeAI } from "https://esm.run";
+        const genAI = new GoogleGenerativeAI("AIzaSyDp4603sFYEjvIr-rW7d-Nrc8OsCCMrnNo");
+        window.ask = async () => {
+            const m = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const r = await m.generateContent(document.getElementById("prompt").value);
+            document.getElementById("res").innerText = r.response.text();
+        };
+    </script>
+</body>
+</html>
